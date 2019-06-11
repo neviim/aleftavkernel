@@ -1,0 +1,12 @@
+[Unit]
+Description=AlefTav Server Script Kernel
+After=network.target
+
+[Service]
+WorkingDirectory=/deploy/alefTavSocketio/server
+ExecStart=/usr/bin/npm start
+Restart=on-failure
+Environment=PORT=3000
+
+[Install]
+WantedBy=multi-user.target
