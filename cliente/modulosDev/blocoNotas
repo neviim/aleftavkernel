@@ -1,0 +1,69 @@
+# dependencias
+
+    $ npm install cheerio request --save
+
+# executando
+
+    $ node scrape.js
+
+
+# referencia usando pacote "cheerio"
+
+    request('http://codedemos.com/sampleblog', (error, response, html) => {
+    if (!error && response.statusCode == 200) {
+
+        // const siteHeading = $('.conteudo');
+    
+        // console.log(siteHeading.html());
+        // console.log(siteHeading.text());
+        // console.log(siteHeading.find('h1').text());
+        // console.log(siteHeading.children('h1').text());
+        
+        /*
+        const output = siteHeading
+        .children('h1')
+        .next()
+        .text();  
+        
+        console.log(output); */
+
+        /*
+        const output = siteHeading
+        .children('h1')
+        .parent()
+        .text();  
+        
+        console.log(output); */
+
+        /*
+        $('.nav-item a').each((i, el) => {
+        const item = $(el).text();
+        const link = $(el).attr('href);
+
+        console.log(item);
+        }); */
+
+    }
+    });
+
+
+
+# uma lista parcial dos seletores disponíveis:
+
+    $("*")          — selects all elements
+    $("#first")     — selects the element with id="first"
+    $(".intro")     — selects all elements with class="intro"
+    $("div")        — selects all <div> elements
+    $("h2, div, p") — selects all <h2>, <div>, <p> elements
+    $("li:first")   — selects the first <li> element
+    $("li:last")    — selects the last <li> element
+    $("li:even")    — selects all even <li> elements
+    $("li:odd")     — selects all odd <li> elements
+    $(":empty")     — selects all elements that are empty
+    $(":focus")     — selects the element that currently has focus
+
+
+# referencias
+    https://gist.github.com/bradtraversy/7b68f19b0c502f1fbd0aa9bc4cfe793d
+
+
