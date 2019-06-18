@@ -140,3 +140,7 @@ alefTav Socketio
 
 # referencias
     https://stackabuse.com/how-to-start-a-node-server-examples-with-the-most-popular-frameworks/
+
+    # terremotos referencias
+    http://www.painelglobal.com.br
+    http://monitorglobal.com.br/terremotos.html  *

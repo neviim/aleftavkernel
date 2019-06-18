@@ -1,6 +1,7 @@
 # dependencias
 
     $ npm install cheerio request --save
+    $ npm install mongoose --save
 
 # executando
 
@@ -70,6 +71,30 @@
 
     }
     });
+
+
+# atual chaves utilizadas para encontrar os dados necessarios
+
+      /* [Ctrl+Shift+C]  (Copy/Copy Seletor)
+      ::: cabeçahlo 
+      #sismo_lista > div > div:nth-child(1) > div > strong        // Horário GMT/UTC
+      #sismo_lista > div > div:nth-child(2) > div > strong        // Horário Brasília
+      #sismo_lista > div > div:nth-child(3) > div > strong        // Intensidade
+      #sismo_lista > div > div:nth-child(4) > div > strong        // Magnitude
+      #sismo_lista > div > div:nth-child(5) > div > strong        // Profundidade
+      #sismo_lista > div > div:nth-child(6) > div > strong        // Local
+      #sismo_lista > div > div:nth-child(7) > div > strong        // Fonte
+      ::: dados conteudo
+      #sismo_lista > div > div:nth-child(1) > div                 // 18/06/2019 13:22
+      #sismo_lista > div > div:nth-child(2) > div                 // 18/06/2019 10:22 
+      #sismo_lista > div > div:nth-child(3) > div                 // Terremoto Forte
+      #sismo_lista > div > div:nth-child(4) > div                 // 6.4 
+      #sismo_lista > div > div:nth-child(5) > div                 // 16.08 km
+      #sismo_lista > div > div:nth-child(6) > div                 // 33km WSW of Tsuruoka, Japan 
+      #sismo_lista > div > div:nth-child(7) > div > a > img       // [+]info
+      #sismo_lista > div > div:nth-child(7) > div > a
+      */
+
 
 
 

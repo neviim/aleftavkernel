@@ -1,6 +1,6 @@
 var um = 1;
 var dois = 'dois';
 
-junta = (um + dois).toString()
+var junta = String(um + dois)
 
-console.log( type(junta) );
+console.log( junta );

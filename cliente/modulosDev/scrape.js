@@ -1,12 +1,13 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const crypto = require("crypto");
-const cipher = crypto.createCipher();
+
 //const fs = require('fs');
 //const writeStream = fs.createWriteStream('terremotos.csv');
 
 // conectando ao server mongodb
 const mongoose = require('mongoose');
+
 mongoose.connect('mongodb://192.168.200.213/terremotos')
   .then(db => console.log('Database conectado!!!'))
   .catch(err => console.log(err));
@@ -20,10 +21,16 @@ var DADOS_CRIPTOGRAFAR = {
   tipo : "hex"
 };
 
-function criptografar(stringKey) {
+function criptografar( stringKey ) {
   const cipher = crypto.createCipher(DADOS_CRIPTOGRAFAR.algoritmo, DADOS_CRIPTOGRAFAR.segredo);
   cipher.update(stringKey);
   return cipher.final(DADOS_CRIPTOGRAFAR.tipo);
+};
+
+function descriptografar(stringKey) {
+  const decipher = crypto.createDecipher(DADOS_CRIPTOGRAFAR.algoritmo, DADOS_CRIPTOGRAFAR.segredo);
+  decipher.update(stringKey, DADOS_CRIPTOGRAFAR.tipo);
+  return decipher.final();
 };
 
 // função scraping terremotos
@@ -40,26 +47,6 @@ request('http://monitorglobal.com.br/terremotos.html', (error, response, html) =
     ocorrencia[key] = [];  // Array vazio, com a chave "key"
 
     $('#sismo_lista').each(function(){ 
-      /* [Ctrl+Shift+C]  (Copy/Copy Seletor)
-      ::: cabeçahlo 
-      #sismo_lista > div > div:nth-child(1) > div > strong        // Horário GMT/UTC
-      #sismo_lista > div > div:nth-child(2) > div > strong        // Horário Brasília
-      #sismo_lista > div > div:nth-child(3) > div > strong        // Intensidade
-      #sismo_lista > div > div:nth-child(4) > div > strong        // Magnitude
-      #sismo_lista > div > div:nth-child(5) > div > strong        // Profundidade
-      #sismo_lista > div > div:nth-child(6) > div > strong        // Local
-      #sismo_lista > div > div:nth-child(7) > div > strong        // Fonte
-      ::: dados conteudo
-      #sismo_lista > div > div:nth-child(1) > div                 // 18/06/2019 13:22
-      #sismo_lista > div > div:nth-child(2) > div                 // 18/06/2019 10:22 
-      #sismo_lista > div > div:nth-child(3) > div                 // Terremoto Forte
-      #sismo_lista > div > div:nth-child(4) > div                 // 6.4 
-      #sismo_lista > div > div:nth-child(5) > div                 // 16.08 km
-      #sismo_lista > div > div:nth-child(6) > div                 // 33km WSW of Tsuruoka, Japan 
-      #sismo_lista > div > div:nth-child(7) > div > a > img       // [+]info
-      #sismo_lista > div > div:nth-child(7) > div > a
-      */
-
       if ( head ) {
         head = false;
         var horario_GMTUTC    = $(this).find('#sismo_lista > div > div:nth-child(1) > div > strong ').text();
@@ -80,8 +67,7 @@ request('http://monitorglobal.com.br/terremotos.html', (error, response, html) =
       }
       
       if (!head) {   // não é cabelhalho
-        let stringKey = (horario_GMTUTC + horario_Brasilia + profundidade + local).toString();
-        let criptoKey = criptografar(stringKey);
+        //let criptoKey = criptografar(String(horario_GMTUTC + horario_Brasilia + profundidade + local));
 
         var data = {
           'horario_GMTUTC': horario_GMTUTC, 
@@ -91,7 +77,7 @@ request('http://monitorglobal.com.br/terremotos.html', (error, response, html) =
           'profundidade': profundidade, 
           'local': local,    
           'fonte': fonte,
-          'criptoKey': criptoKey 
+          'criptoKey': criptografar(String(horario_GMTUTC + horario_Brasilia + profundidade + local)) 
         };
 
         ocorrencia[key].push(data);
