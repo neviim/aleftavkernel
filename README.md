@@ -1,5 +1,9 @@
 alefTav Socketio  
 
+# mongoDb
+
+    mongoose.connect('mongodb://user:senha@host/base');
+
 
 # server - preparando ambiente no servidor.
 
