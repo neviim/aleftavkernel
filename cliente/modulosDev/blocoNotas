@@ -19,6 +19,10 @@
         // console.log(siteHeading.find('h1').text());
         // console.log(siteHeading.children('h1').text());
         
+        //console.log(siteHeading.text());
+        //console.log(siteHeading.find('div').text());
+        //console.log(siteHeading.children('div').text());
+        
         /*
         const output = siteHeading
         .children('h1')
@@ -43,6 +47,27 @@
         console.log(item);
         }); */
 
+        //const output = siteHeading
+        //  .children('div')
+        //  .parent()
+        //  .text();  
+        //console.log(output);
+
+        //$('#sismo_lista').each((i, el) => {
+        //  const title = $(el)
+        //    .find('div')
+        //    .text()
+        //    .replace(/\s\s+/g, '');
+        //  console.log(title);
+        //});    
+
+        // const output = siteHeading
+        //   .children('div')
+        //   .parent()
+        //   .text()
+        //   .replace(^(\s)*$\n, '');
+        // console.log(output);
+
     }
     });
 
@@ -66,4 +91,6 @@
 # referencias
     https://gist.github.com/bradtraversy/7b68f19b0c502f1fbd0aa9bc4cfe793d
 
+    # Construindo um Web Scraping com NodeJS
+    https://www.danieldcs.com.br/construindo-um-web-scraping-em-nodejs/
 
