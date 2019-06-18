@@ -8,11 +8,13 @@ const crypto = require("crypto");
 // conectando ao server mongodb
 const mongoose = require('mongoose');
 
+/*
 mongoose.connect('mongodb://192.168.200.213/terremotos')
   .then(db => console.log('Database conectado!!!'))
   .catch(err => console.log(err));
 
 var Schema = mongoose.Schema; 
+*/
 
 // criptografia config
 var DADOS_CRIPTOGRAFAR = {
@@ -67,8 +69,6 @@ request('http://monitorglobal.com.br/terremotos.html', (error, response, html) =
       }
       
       if (!head) {   // não é cabelhalho
-        //let criptoKey = criptografar(String(horario_GMTUTC + horario_Brasilia + profundidade + local));
-
         var data = {
           'horario_GMTUTC': horario_GMTUTC, 
           'horario_Brasilia': horario_Brasilia,
