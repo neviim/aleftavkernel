@@ -1,20 +1,8 @@
 const request = require('request');
 const cheerio = require('cheerio');
 const crypto = require("crypto");
-
-//const fs = require('fs');
-//const writeStream = fs.createWriteStream('terremotos.csv');
-
-// conectando ao server mongodb
-const mongoose = require('mongoose');
-
-/*
-mongoose.connect('mongodb://192.168.200.213/terremotos')
-  .then(db => console.log('Database conectado!!!'))
-  .catch(err => console.log(err));
-
-var Schema = mongoose.Schema; 
-*/
+const grava = require("./fs_grava");
+const database = require("./database");
 
 // criptografia config
 var DADOS_CRIPTOGRAFAR = {
@@ -48,7 +36,7 @@ request('http://monitorglobal.com.br/terremotos.html', (error, response, html) =
     var head = true;
     ocorrencia[key] = [];  // Array vazio, com a chave "key"
 
-    $('#sismo_lista').each(function(){ 
+    $('#sismo_lista').each( function() { 
       if ( head ) {
         head = false;
         var horario_GMTUTC    = $(this).find('#sismo_lista > div > div:nth-child(1) > div > strong ').text();
@@ -70,8 +58,8 @@ request('http://monitorglobal.com.br/terremotos.html', (error, response, html) =
       
       if (!head) {   // não é cabelhalho
         var data = {
-          'horario_GMTUTC': horario_GMTUTC, 
-          'horario_Brasilia': horario_Brasilia,
+          'horario_GMTUTC': horario_GMTUTC.trim(), 
+          'horario_Brasilia': horario_Brasilia.trim(),
           'intensidade': intensidade,    
           'magnitude': magnitude,      
           'profundidade': profundidade, 
@@ -84,8 +72,8 @@ request('http://monitorglobal.com.br/terremotos.html', (error, response, html) =
       }
     });
 
-    console.log(ocorrencia);
-
+    // grava.arquivoJson(JSON.stringify(ocorrencia));
+    // grava.salvaDocumentoEmMonfoDB(JSON.stringify(ocorrencia));
   }
 });
 

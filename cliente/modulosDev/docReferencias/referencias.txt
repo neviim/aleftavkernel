@@ -1,0 +1,97 @@
+[Sub Documentos]
+// Digamos que seu sistema precisa de uma collection Usuario, e que cada usuário 
+// possua uma lista de serviços com seus devidos preços.
+
+Exemplo:
+
+{
+ name: "Eder Taveira", 
+ services: 
+ [
+  {name: "Eletricista",
+   price: 10.00},
+  {
+   name: "Marceneiro",price: 20.00
+  }
+ ]
+}
+
+// Criando os Schemas com sub-docs no node (express):
+
+
+
+[userModel.js]
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/exemplo');
+var serviceSchema = new Schema({
+   name: String
+})
+var serviceUserSchema = new Schema({
+   //Mapeando su-doc service simples. 
+   service: {type: mongoose.Schema.Types.ObjectId, ref: 'services'},
+   price: Number
+})
+var userSchema = new Schema({
+   name: String,
+   //Mapeamento como array
+   services: [serviceUserSchema]
+})        
+mongoose.model('services', serviceSchema);
+module.exports = mongoose.model('users', userSchema);
+
+
+
+
+[userModel.js]
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/exemplo');
+var Schema   = mongoose.Schema;
+ 
+var favoritesSchema = new Schema({
+    userId : {type: mongoose.Schema.Types.ObjectId, ref: 'users'}
+});
+ 
+var userSchema = new Schema({
+    email : { type: String, unique: true },
+    name : String, 
+    favorites : [favoritesSchema]
+});
+
+
+
+[userController.js]
+
+var userModel = require('../models/userModel.js');
+module.exports = {
+favoriteToggle: function(req, res) {
+        //Parâmetros recebidos via request
+        var user = req.body.user;
+        var favoriteId = req.body.favoriteId;
+        userModel.findById({'_id': user._id},  function (err, user) {
+ 
+            //Verifico se o ID do usuário a ser favoritado existe no sub-documento do usuário solicitante
+            var fav = user.favorites.id(favoriteId);
+            if (fav) {
+                //Caso exista, eu o removo.   
+                fav.remove();
+            } else {
+                //Caso não, o incluo.
+                user.favorites.push({_id : favoriteId});
+            }
+            //Salvo o documento com seus sub-documentos atualizados.
+            user.save(function (err) {
+                if (err) return handleError(err);
+                return res.json(user);
+            });
+        });
+}
+
+
+
+[Outra forma de declarar sub-docs]
+
+var userSchema = new Schema({ favorite: [userId : {type: mongoose.Schema.Types.ObjectId, ref: 'users'}]});
+//OU
+parentSchema = new Schema({ children: [new Schema(userId : {type: mongoose.Schema.Types

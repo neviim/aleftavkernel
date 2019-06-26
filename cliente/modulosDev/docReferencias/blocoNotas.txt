@@ -97,6 +97,56 @@
 
 
 
+        // exports.salvaDocumentoEmMonfoDB = function (documento) {
+
+        //   mongoose.connect('mongodb://192.168.200.213/terremotos')
+        //     .then(db => console.log('Database conectado!!!'))
+        //     .catch(error => console.log(error));
+
+        //   let mdb = mongoose.connection;
+
+        //   mdb.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+        //   // -------------------------------------
+        //   mdb.once('open', function() {
+        //     console.log("Conectado com sucesso!");
+            
+        //     // define Schema
+        //     var TerremotoSchema = mongoose.Schema( {
+        //       horario_GMTUTC: String,
+        //       horario_Brasilia: String,
+        //       intensidade: String,
+        //       magnitude: String,
+        //       profundidade: String,
+        //       local: String,
+        //       fonte: String,
+        //       criptoKey: String
+        //     });
+
+        //     // compila schema para modelo
+        //     var Terremoto = mongoose.model('Terremoto', TerremotoSchema, 'terremotos');
+
+        //     // documents array
+        //     // var terremotos = [{ name: 'Mongoose Tutorial', price: 10, quantity: 25 },
+        //     //                   { name: 'NodeJS tutorial',   price: 15, quantity:  5 },
+        //     //                   { name: 'MongoDB Tutorial',  price: 20, quantity:  2 }];
+
+        //     var terremotos = documento;
+
+        //     // save multiple documents to the collection referenced by Terremoto Model
+        //     Terremoto.collection.insert(terremotos, function (erro, docs) {
+        //       if (erro){ 
+        //           return console.error(erro);
+        //       } else {
+        //         console.log("Multiplos documentos inceridos para a coleção");
+        //       }
+        //     });
+        //   });
+        // };
+
+
+
+
 
 # uma lista parcial dos seletores disponíveis:
 
@@ -123,4 +173,6 @@
     https://tableless.com.br/crud-nodejs-mongodb-express-mongoo-kinghost-hospedagem/
     https://www.guru99.com/node-js-mongodb.html
     https://flaviocopes.com/node-mongodb/
+
+    https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/
 
