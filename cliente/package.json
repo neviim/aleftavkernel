@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "mongoose": "^5.6.0",
+    "mongoose": "^5.7.5",
     "node-datetime": "^2.1.2",
     "pwd": "^1.1.0",
     "request": "^2.88.0",
